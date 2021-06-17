@@ -28,19 +28,26 @@
         <el-table-column
           prop="edate"
           label="请假结束日期"
-          width="280">
+          width="200">
         </el-table-column>
         <el-table-column
           prop="apply_date"
-          label="申请日期">
+          label="申请日期"
+          width="200">
+        </el-table-column>
+        <el-table-column
+          prop="notes"
+          label="请假理由"
+          width="200">
         </el-table-column>
         <el-table-column
           prop="date_num"
-          label="请假天数">
+          label="请假天数"
+          width="100">
         </el-table-column>
         <el-table-column
           prop=""
-          label="操作" width="180">
+          label="操作" >
           <template slot-scope="scope">
             <el-button type="success" @click="showModifyDialog(scope.row)" size="mini">发起修改流程</el-button>
           </template>
@@ -60,6 +67,9 @@
           <el-date-picker value-format="yyyy-MM-dd"
                           v-model="addHolidayForm.edate"  type="date" placeholder="选择日期">
           </el-date-picker>
+        </el-form-item>
+        <el-form-item label="请假原因" prop="notes">
+          <el-input v-model="addHolidayForm.notes"></el-input>
         </el-form-item>
         <el-form-item >
               <span class="button_span">
@@ -83,6 +93,9 @@
                           v-model="modifyHolidayForm.edate"  type="date" placeholder="选择日期">
           </el-date-picker>
         </el-form-item>
+        <el-form-item label="请假原因" prop="notes">
+          <el-input v-model="modifyHolidayForm.notes"></el-input>
+        </el-form-item>
         <el-form-item >
               <span class="button_span">
                 <el-button type="primary" @click="modifyHoliday()" size="small">修改</el-button>
@@ -103,11 +116,13 @@ export default {
         bdate: '',
         edate: '',
         apply_date: '',
-        date_num: ''
+        date_num: '',
+        notes: ''
       },
       addHolidayFormRules: {
         bdate: [{ required: true, message: '开始日期不能为空', trigger: 'blur' }],
-        edate: [{ required: true, message: '结束日期不能为空', trigger: 'blur' }]
+        edate: [{ required: true, message: '结束日期不能为空', trigger: 'blur' }],
+        notes: [{ required: true, message: '请假理由不能为空', trigger: 'blur' }]
       },
       modifyHolidayDialogVisable: false,
       modifyHolidayForm: {
@@ -115,11 +130,13 @@ export default {
         bdate: '',
         edate: '',
         apply_date: '',
-        date_num: ''
+        date_num: '',
+        notes: ''
       },
       modifyHolidayFormRules: {
         bdate: [{ required: true, message: '开始日期不能为空', trigger: 'blur' }],
-        edate: [{ required: true, message: '结束日期不能为空', trigger: 'blur' }]
+        edate: [{ required: true, message: '结束日期不能为空', trigger: 'blur' }],
+        notes: [{ required: true, message: '请假理由不能为空', trigger: 'blur' }]
       }
     }
   },
@@ -179,6 +196,7 @@ export default {
       this.modifyHolidayForm.pre_id = row.id
       this.modifyHolidayForm.bdate = row.bdate
       this.modifyHolidayForm.edate = row.edate
+      this.modifyHolidayForm.notes = row.notes
       // console.log(row)
     },
     // 重置修改请假对话框

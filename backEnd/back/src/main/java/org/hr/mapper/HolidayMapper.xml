@@ -42,20 +42,20 @@
 
     <!-- 申请新增请假-->
     <insert id="addHolidayFlow" parameterType="org.hr.model.HolidayFlow">
-        INSERT INTO hr.holiday_flow (id, user_name, type,apply_date, bdate, edate, date_num, state)
-        VALUES (replace(uuid(),'-',''),#{user_name},#{type}, #{apply_date}, #{bdate}, #{edate}, #{date_num}, #{state})
+        INSERT INTO hr.holiday_flow (id, user_name, type,apply_date, bdate, edate, date_num, state,notes)
+        VALUES (replace(uuid(),'-',''),#{user_name},#{type}, #{apply_date}, #{bdate}, #{edate}, #{date_num}, #{state},#{notes})
     </insert>
 
     <!-- 新增请假-->
     <insert id="addHoliday" parameterType="org.hr.model.HolidayDetail">
-        INSERT INTO hr.holiday (id, `user`,  bdate, edate, apply_date,date_num)
-        VALUES (replace(uuid(),'-',''),#{user}, #{bdate}, #{edate}, #{apply_date},#{date_num})
+        INSERT INTO hr.holiday (id, `user`,  bdate, edate, apply_date,date_num,notes)
+        VALUES (replace(uuid(),'-',''),#{user}, #{bdate}, #{edate}, #{apply_date},#{date_num},#{notes})
     </insert>
 
     <!-- 申请修改请假-->
     <insert id="modifyHolidayFlow" parameterType="org.hr.model.HolidayFlow">
-        INSERT INTO hr.holiday_flow (id, user_name, pre_id, type,apply_date, bdate, edate, date_num, state)
-        VALUES (replace(uuid(),'-',''),#{user_name}, #{pre_id},#{type},#{apply_date}, #{bdate}, #{edate}, #{date_num}, #{state})
+        INSERT INTO hr.holiday_flow (id, user_name, pre_id, type,apply_date, bdate, edate, date_num, state,notes)
+        VALUES (replace(uuid(),'-',''),#{user_name}, #{pre_id},#{type},#{apply_date}, #{bdate}, #{edate}, #{date_num}, #{state},#{notes})
     </insert>
 
 

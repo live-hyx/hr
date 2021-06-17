@@ -11,7 +11,7 @@
  Target Server Version : 80021
  File Encoding         : 65001
 
- Date: 15/06/2021 21:28:33
+ Date: 17/06/2021 08:45:28
 */
 
 SET NAMES utf8mb4;
@@ -106,8 +106,9 @@ CREATE TABLE `holiday` (
 -- Records of holiday
 -- ----------------------------
 BEGIN;
-INSERT INTO `holiday` VALUES ('4fdbe210cddb11eb8a74943e7698962a', 'admin', '2021-06-15 16:00:00', '2021-06-16 16:00:00', '2021-06-15 13:12:11', 1, NULL);
-INSERT INTO `holiday` VALUES ('f9eb13a6cddc11eb8a74943e7698962a', 'user', '2021-05-31 16:00:00', '2021-06-02 16:00:00', '2021-06-15 13:24:02', 2, NULL);
+INSERT INTO `holiday` VALUES ('382c3530ce7a11eb8a74943e7698962a', 'admin', '2021-06-22 16:00:00', '2021-06-23 16:00:00', '2021-06-16 08:09:39', 1, '病假');
+INSERT INTO `holiday` VALUES ('744a3f1ecf0411eb8a74943e7698962a', 'admin', '2021-05-31 16:00:00', '2021-06-22 16:00:00', '2021-06-17 00:39:00', 22, '回家');
+INSERT INTO `holiday` VALUES ('75466018ce7911eb8a74943e7698962a', 'admin', '2021-06-15 16:00:00', '2021-06-17 16:00:00', '2021-06-16 08:04:07', 2, '事假');
 COMMIT;
 
 -- ----------------------------
@@ -127,6 +128,7 @@ CREATE TABLE `holiday_flow` (
   `approve_date` datetime DEFAULT NULL,
   `approve_result` int DEFAULT NULL,
   `state` int DEFAULT NULL,
+  `notes` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -134,9 +136,17 @@ CREATE TABLE `holiday_flow` (
 -- Records of holiday_flow
 -- ----------------------------
 BEGIN;
-INSERT INTO `holiday_flow` VALUES ('4b6f615ccddb11eb8a74943e7698962a', 'admin', NULL, 0, '2021-06-15 13:12:11', '2021-05-31 16:00:00', '2021-06-01 16:00:00', 1, 'admin', NULL, 0, 1);
-INSERT INTO `holiday_flow` VALUES ('7756e484cddb11eb8a74943e7698962a', 'admin', '4fdbe210cddb11eb8a74943e7698962a', 1, '2021-06-15 13:13:24', '2021-06-15 16:00:00', '2021-06-16 16:00:00', 1, 'admin', NULL, 0, 1);
-INSERT INTO `holiday_flow` VALUES ('f34f6dbccddc11eb8a74943e7698962a', 'user', NULL, 0, '2021-06-15 13:24:02', '2021-05-31 16:00:00', '2021-06-02 16:00:00', 2, 'admin', NULL, 0, 1);
+INSERT INTO `holiday_flow` VALUES ('0e1c3966ce7a11eb8a74943e7698962a', 'admin', '75466018ce7911eb8a74943e7698962a', 1, '2021-06-16 08:08:38', '2021-06-16 16:00:00', '2021-06-17 16:00:00', 1, 'admin', NULL, 1, 1, 'qw');
+INSERT INTO `holiday_flow` VALUES ('2d4c9066ce7911eb8a74943e7698962a', 'admin', NULL, 0, '2021-06-16 08:02:21', '2021-06-15 16:00:00', '2021-06-17 16:00:00', 2, 'admin', NULL, 1, 1, '');
+INSERT INTO `holiday_flow` VALUES ('2d633c1ccf0511eb8a74943e7698962a', 'admin', '744a3f1ecf0411eb8a74943e7698962a', 1, '2021-06-17 00:44:30', '2021-05-31 16:00:00', '2021-06-22 16:00:00', 22, 'admin', NULL, 0, 1, '回家');
+INSERT INTO `holiday_flow` VALUES ('32728fb8ce7a11eb8a74943e7698962a', 'admin', NULL, 0, '2021-06-16 08:09:39', '2021-06-22 16:00:00', '2021-06-23 16:00:00', 1, 'admin', NULL, 0, 1, 'dasds');
+INSERT INTO `holiday_flow` VALUES ('55e28a50ce7c11eb8a74943e7698962a', 'admin', '75466018ce7911eb8a74943e7698962a', 1, '2021-06-16 08:24:57', '2021-06-15 16:00:00', '2021-06-17 16:00:00', 2, 'admin', NULL, 0, 1, '事假');
+INSERT INTO `holiday_flow` VALUES ('5a033b98ce7c11eb8a74943e7698962a', 'admin', '382c3530ce7a11eb8a74943e7698962a', 1, '2021-06-16 08:25:04', '2021-06-22 16:00:00', '2021-06-23 16:00:00', 1, 'admin', NULL, 0, 1, '病假');
+INSERT INTO `holiday_flow` VALUES ('683abe6acf0411eb8a74943e7698962a', 'admin', NULL, 0, '2021-06-17 00:39:00', '2021-05-31 16:00:00', '2021-06-24 16:00:00', 24, 'admin', NULL, 0, 1, 'dsadasda');
+INSERT INTO `holiday_flow` VALUES ('6c97a1cace7911eb8a74943e7698962a', 'admin', NULL, 0, '2021-06-16 08:04:07', '2021-06-15 16:00:00', '2021-06-16 16:00:00', 1, 'admin', NULL, 0, 1, 'asd');
+INSERT INTO `holiday_flow` VALUES ('6ff85beecf0411eb8a74943e7698962a', 'admin', '382c3530ce7a11eb8a74943e7698962a', 1, '2021-06-17 00:39:13', '2021-06-22 16:00:00', '2021-06-24 16:00:00', 2, 'admin', NULL, 1, 1, 'youdasd');
+INSERT INTO `holiday_flow` VALUES ('bda42b1ece7a11eb8a74943e7698962a', 'admin', NULL, 0, '2021-06-16 08:13:32', '2021-05-31 16:00:00', '2021-06-21 16:00:00', 21, 'admin', NULL, 1, 1, 'dasda');
+INSERT INTO `holiday_flow` VALUES ('fea70f9cce7911eb8a74943e7698962a', 'admin', '75466018ce7911eb8a74943e7698962a', 1, '2021-06-16 08:08:12', '2021-06-15 16:00:00', '2021-06-17 16:00:00', 2, 'admin', NULL, 0, 1, 'qweeqweqwe');
 COMMIT;
 
 -- ----------------------------

@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -79,7 +80,7 @@ public class HolidayController {
         holidayFlow.setType(0);
         holidayFlow.setApply_date(df.parse(df.format(new Date())));
         holidayFlow.setDate_num((int) ((holidayFlow.getEdate().getTime()-holidayFlow.getBdate().getTime()) / (1000 * 60 * 60 * 24)));
-
+        holidayFlow.setNotes(holidayFlow.getNotes());
 
         holidayFlow.setState(0);
         Integer result = holidayService.addHolidayFlow(holidayFlow);
@@ -105,7 +106,7 @@ public class HolidayController {
         holidayFlow.setType(1);
         holidayFlow.setApply_date(df.parse(df.format(new Date())));
         holidayFlow.setDate_num((int) ((holidayFlow.getEdate().getTime()-holidayFlow.getBdate().getTime()) / (1000 * 60 * 60 * 24)));
-
+        holidayFlow.setNotes(holidayFlow.getNotes());
 
         holidayFlow.setState(0);
         Integer result = holidayService.modifyHolidayFlow(holidayFlow);
@@ -122,8 +123,11 @@ public class HolidayController {
 
     //修改请假
     @PostMapping("/admin/modify_holiday")
-    public Object modifyHoliday(@RequestBody HolidayDetail holidayDetail){
+    public Object modifyHoliday(@RequestBody HolidayDetail holidayDetail) throws Exception {
         Map<String,Object> map=new HashMap<>();
+        DateFormat df= new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        holidayDetail.setApply_date(df.parse(df.format(new Date())));
+
         Integer result=holidayService.modifyHoliday(holidayDetail);
         if(result ==1){
             map.put("state",200);
@@ -203,7 +207,7 @@ public class HolidayController {
                 holidayDetail.setEdate(holidayFlow.getEdate());
                 holidayDetail.setApply_date(holidayFlow.getApply_date());
                 holidayDetail.setDate_num((int) ((holidayFlow.getEdate().getTime()-holidayFlow.getBdate().getTime()) / (1000 * 60 * 60 * 24)));
-
+                holidayDetail.setNotes(holidayFlow.getNotes());
 
                 int result_1=holidayService.addHoliday(holidayDetail);
 
@@ -217,6 +221,7 @@ public class HolidayController {
                 holidayFlow2.setDate_num((int) ((holidayFlow.getEdate().getTime()-holidayFlow.getBdate().getTime()) / (1000 * 60 * 60 * 24)));
                 holidayFlow2.setApprove_result(0);
                 holidayFlow2.setState(1);
+                holidayFlow2.setNotes(holidayFlow.getNotes());
 
                 int result_2=holidayService.updateHolidayFlowState(holidayFlow2);
 
@@ -238,7 +243,7 @@ public class HolidayController {
                 holidayDetail.setEdate(holidayFlow.getEdate());
                 holidayDetail.setApply_date(holidayFlow.getApply_date());
                 holidayDetail.setDate_num((int) ((holidayFlow.getEdate().getTime()-holidayFlow.getBdate().getTime()) / (1000 * 60 * 60 * 24)));
-
+                holidayDetail.setNotes(holidayFlow.getNotes());
                 int result_1=holidayService.modifyHoliday(holidayDetail);
                 //更新流程状态和审批信息
                 HolidayFlow holidayFlow2 =new HolidayFlow();
@@ -250,6 +255,7 @@ public class HolidayController {
                 holidayFlow2.setDate_num((int) ((holidayFlow.getEdate().getTime()-holidayFlow.getBdate().getTime()) / (1000 * 60 * 60 * 24)));
                 holidayFlow2.setApprove_result(0);
                 holidayFlow2.setState(1);
+                holidayFlow2.setNotes(holidayFlow.getNotes());
 
                 int result_2=holidayService.updateHolidayFlowState(holidayFlow2);
                 if(result_1==1&&result_2==1){
@@ -273,6 +279,7 @@ public class HolidayController {
             holidayFlow2.setDate_num((int) ((holidayFlow.getEdate().getTime()-holidayFlow.getBdate().getTime()) / (1000 * 60 * 60 * 24)));
             holidayFlow2.setApprove_result(1);
             holidayFlow2.setState(1);
+            holidayFlow2.setNotes(holidayFlow.getNotes());
 
             int result_2=holidayService.updateHolidayFlowState(holidayFlow2);
             if(result_2==1){

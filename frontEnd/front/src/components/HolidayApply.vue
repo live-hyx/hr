@@ -20,14 +20,14 @@
           width="100">
         </el-table-column>
         <el-table-column
-          prop="apply_date"
-          label="申请时间"
-          width="100">
-        </el-table-column>
-        <el-table-column
           prop="type"
           label="申请类型"
           width="100">
+        </el-table-column>
+        <el-table-column
+          prop="apply_date"
+          label="申请时间"
+          width="180">
         </el-table-column>
         <el-table-column
           prop="bdate"
@@ -36,7 +36,13 @@
         </el-table-column>
         <el-table-column
           prop="edate"
-          label="请假结束日期">
+          label="请假结束日期"
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="notes"
+          label="请假理由"
+          width="180">
         </el-table-column>
         <el-table-column
           prop="approve_result"

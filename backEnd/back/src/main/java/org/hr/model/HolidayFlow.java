@@ -17,6 +17,8 @@ public class HolidayFlow {
     private Date edate;
     private Integer date_num;
 
+
+
     @Override
     public String toString() {
         return "HolidayFlow{" +
@@ -39,6 +41,7 @@ public class HolidayFlow {
     private Date approve_date;
     private Integer approve_result;
     private Integer state;
+    private String notes;
 
     public String getId() {
         return id;
@@ -132,5 +135,13 @@ public class HolidayFlow {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 }

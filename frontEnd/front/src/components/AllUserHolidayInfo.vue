@@ -21,7 +21,12 @@
         <el-table-column
           prop="user"
           label="用户名"
-          width="100">
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="apply_date"
+          width="180"
+          label="申请日期">
         </el-table-column>
         <el-table-column
           prop="bdate"
@@ -30,17 +35,17 @@
         </el-table-column>
         <el-table-column
           prop="edate"
-          width="250"
+          width="180"
           label="请假结束日期">
         </el-table-column>
         <el-table-column
-          prop="apply_date"
+          prop="notes"
           width="180"
-          label="申请日期">
+          label="请假理由">
         </el-table-column>
         <el-table-column
           prop="date_num"
-          width="180"
+          width="100"
           label="请假天数">
         </el-table-column>
         <el-table-column
@@ -67,21 +72,24 @@
         <el-form-item label="用户名：" >
           <el-input v-model="modifyHolidayForm.user" disabled></el-input>
         </el-form-item>
-        <el-form-item label="请假开始日期：" prop="bdate">
+        <el-form-item label="开始日期：" prop="bdate">
           <el-date-picker value-format="yyyy-MM-dd"
                           v-model="modifyHolidayForm.bdate"  type="date" placeholder="选择日期">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="请假结束日期：" prop="edate">
+        <el-form-item label="结束日期：" prop="edate">
           <el-date-picker value-format="yyyy-MM-dd"
                           v-model="modifyHolidayForm.edate"  type="date" placeholder="选择日期">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="申请时间：" prop="apply_date">
+        <el-form-item label="请假原因" prop="notes">
+          <el-input v-model="modifyHolidayForm.notes"></el-input>
+        </el-form-item>
+        <!--<el-form-item label="申请时间：" prop="apply_date">
           <el-date-picker value-format="yyyy-MM-dd"
                           v-model="modifyHolidayForm.apply_date"  type="date" placeholder="选择日期">
           </el-date-picker>
-        </el-form-item>
+        </el-form-item>-->
         <el-form-item >
               <span class="button_span">
                 <el-button type="primary" @click="modifyHoliday()" size="small">修改</el-button>
@@ -108,11 +116,13 @@ export default {
         bdate: '',
         edate: '',
         apply_date: '',
-        date_num: ''
+        date_num: '',
+        notes: ''
       },
       modifyHolidayFormRules: {
         bdate: [{ required: true, message: '开始日期不能为空', trigger: true }],
-        edate: [{ required: true, message: '结束日期不能为空', trigger: true }]
+        edate: [{ required: true, message: '结束日期不能为空', trigger: true }],
+        notes: [{ required: true, message: '结束日期不能为空', trigger: true }]
       }
     }
   },

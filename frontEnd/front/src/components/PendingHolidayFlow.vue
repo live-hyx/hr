@@ -23,11 +23,6 @@
           width="100">
         </el-table-column>
         <el-table-column
-          prop="apply_date"
-          label="申请时间"
-          width="100">
-        </el-table-column>
-        <el-table-column
           prop="type"
           label="申请类型"
           width="100">
@@ -43,20 +38,33 @@
           </template>
         </el-table-column>
         <el-table-column
+          prop="apply_date"
+          label="申请时间"
+          width="160">
+        </el-table-column>
+        <el-table-column
           prop="bdate"
-          label="请假开始时间">
+          label="请假开始时间"
+          width="160">
         </el-table-column>
         <el-table-column
           prop="edate"
-          label="请假结束时间">
+          label="请假结束时间"
+          width="160">
+        </el-table-column>
+        <el-table-column
+          prop="notes"
+          label="请假理由"
+          width="160">
         </el-table-column>
         <el-table-column
           prop="date_num"
-          label="请假天数">
+          label="请假天数"
+          width="100">
         </el-table-column>
         <el-table-column
           prop=""
-          label="操作" width="180">
+          label="操作">
           <template slot-scope="scope">
             <el-button type="success" @click="agree(scope.row)" size="mini">同意</el-button>
             <el-button type="info" @click="disagree(scope.row)" size="mini">不同意</el-button>
