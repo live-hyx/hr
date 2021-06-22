@@ -24,12 +24,12 @@
                 <el-form ref="loginFormRef" :model="loginForm"  label-width="" class="login_form" :rules="loginFormRules">
                     <el-form-item label="" prop="username">
                         <div class="search1">
-                        <el-input v-model="loginForm.username" prefix-icon="el-icon-user" ></el-input>
+                        <el-input v-model="loginForm.username" prefix-icon="el-icon-user" placeholder="请输入用户名"></el-input>
                         </div>
                     </el-form-item>
                     <el-form-item label="" prop="password">
                       <div class="search2">
-                        <el-input v-model="loginForm.password" prefix-icon="el-icon-lock" type="password"></el-input>
+                        <el-input v-model="loginForm.password" prefix-icon="el-icon-lock" type="password" placeholder="请输入密码"></el-input>
                       </div>
                     </el-form-item>
                     <el-form-item class="btns">
@@ -56,8 +56,8 @@ export default {
   data () {
     return {
       loginForm: {
-        username: 'admin',
-        password: '123'
+        username: '',
+        password: ''
       },
       loginFormRules: {
         username: [
