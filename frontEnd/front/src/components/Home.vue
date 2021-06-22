@@ -68,7 +68,6 @@ export default {
     this.activePath = window.sessionStorage.getItem('activePath')
   },
   methods: {
-<<<<<<< HEAD
     buttonType (index) {
       console.log(this.index)
       // eslint-disable-next-line eqeqeq
@@ -92,9 +91,6 @@ export default {
       this.gettime = yy + '-' + mm + '-' + dd + ' ' + hh + ':' + mf + ':' + ss
       console.log(this.gettime)
     },
-
-=======
->>>>>>> 1c629f66aa92a0a3f2c27e4dddd04bbab20bd734
     sign () {
       if (this.signFlag === 202) {
         this.getCurrentTime()
