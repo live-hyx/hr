@@ -11,7 +11,7 @@
  Target Server Version : 80021
  File Encoding         : 65001
 
- Date: 17/06/2021 08:45:28
+ Date: 22/06/2021 18:38:59
 */
 
 SET NAMES utf8mb4;
@@ -22,20 +22,20 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `certificate_flow`;
 CREATE TABLE `certificate_flow` (
-  `id` varchar(32) NOT NULL,
+  `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `type` int DEFAULT NULL,
-  `pre_id` varchar(32) DEFAULT NULL,
-  `user_name` varchar(32) DEFAULT NULL,
+  `pre_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `user_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `apply_date` datetime DEFAULT NULL,
-  `cert_no` varchar(100) DEFAULT NULL,
-  `cert_name` varchar(100) DEFAULT NULL,
+  `cert_no` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `cert_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `cert_date` datetime DEFAULT NULL,
-  `approver_id` varchar(32) DEFAULT NULL,
+  `approver_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `approve_date` datetime DEFAULT NULL,
   `approve_result` int DEFAULT NULL,
   `state` int DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of certificate_flow
@@ -66,14 +66,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `employee_certificate`;
 CREATE TABLE `employee_certificate` (
-  `id` varchar(32) NOT NULL,
-  `user` varchar(32) DEFAULT NULL,
-  `cert_no` varchar(100) DEFAULT NULL,
-  `cert_name` varchar(100) DEFAULT NULL,
+  `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `user` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `cert_no` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `cert_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `cert_date` datetime DEFAULT NULL,
-  `notes` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `notes` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of employee_certificate
@@ -92,105 +92,82 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `holiday`;
 CREATE TABLE `holiday` (
-  `id` varchar(32) NOT NULL,
-  `user` varchar(32) DEFAULT NULL,
+  `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `user` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `bdate` datetime DEFAULT NULL,
   `edate` datetime DEFAULT NULL,
   `apply_date` datetime DEFAULT NULL,
   `date_num` int DEFAULT NULL,
   `notes` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of holiday
--- ----------------------------
-BEGIN;
-INSERT INTO `holiday` VALUES ('382c3530ce7a11eb8a74943e7698962a', 'admin', '2021-06-22 16:00:00', '2021-06-23 16:00:00', '2021-06-16 08:09:39', 1, '病假');
-INSERT INTO `holiday` VALUES ('744a3f1ecf0411eb8a74943e7698962a', 'admin', '2021-05-31 16:00:00', '2021-06-22 16:00:00', '2021-06-17 00:39:00', 22, '回家');
-INSERT INTO `holiday` VALUES ('75466018ce7911eb8a74943e7698962a', 'admin', '2021-06-15 16:00:00', '2021-06-17 16:00:00', '2021-06-16 08:04:07', 2, '事假');
-COMMIT;
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Table structure for holiday_flow
 -- ----------------------------
 DROP TABLE IF EXISTS `holiday_flow`;
 CREATE TABLE `holiday_flow` (
-  `id` varchar(32) NOT NULL,
+  `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `user_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `pre_id` varchar(32) DEFAULT NULL,
+  `pre_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `type` int DEFAULT NULL,
   `apply_date` datetime DEFAULT NULL,
   `bdate` datetime DEFAULT NULL,
   `edate` datetime DEFAULT NULL,
   `date_num` int DEFAULT NULL,
-  `approver_id` varchar(32) DEFAULT NULL,
+  `approver_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `approve_date` datetime DEFAULT NULL,
   `approve_result` int DEFAULT NULL,
   `state` int DEFAULT NULL,
-  `notes` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of holiday_flow
--- ----------------------------
-BEGIN;
-INSERT INTO `holiday_flow` VALUES ('0e1c3966ce7a11eb8a74943e7698962a', 'admin', '75466018ce7911eb8a74943e7698962a', 1, '2021-06-16 08:08:38', '2021-06-16 16:00:00', '2021-06-17 16:00:00', 1, 'admin', NULL, 1, 1, 'qw');
-INSERT INTO `holiday_flow` VALUES ('2d4c9066ce7911eb8a74943e7698962a', 'admin', NULL, 0, '2021-06-16 08:02:21', '2021-06-15 16:00:00', '2021-06-17 16:00:00', 2, 'admin', NULL, 1, 1, '');
-INSERT INTO `holiday_flow` VALUES ('2d633c1ccf0511eb8a74943e7698962a', 'admin', '744a3f1ecf0411eb8a74943e7698962a', 1, '2021-06-17 00:44:30', '2021-05-31 16:00:00', '2021-06-22 16:00:00', 22, 'admin', NULL, 0, 1, '回家');
-INSERT INTO `holiday_flow` VALUES ('32728fb8ce7a11eb8a74943e7698962a', 'admin', NULL, 0, '2021-06-16 08:09:39', '2021-06-22 16:00:00', '2021-06-23 16:00:00', 1, 'admin', NULL, 0, 1, 'dasds');
-INSERT INTO `holiday_flow` VALUES ('55e28a50ce7c11eb8a74943e7698962a', 'admin', '75466018ce7911eb8a74943e7698962a', 1, '2021-06-16 08:24:57', '2021-06-15 16:00:00', '2021-06-17 16:00:00', 2, 'admin', NULL, 0, 1, '事假');
-INSERT INTO `holiday_flow` VALUES ('5a033b98ce7c11eb8a74943e7698962a', 'admin', '382c3530ce7a11eb8a74943e7698962a', 1, '2021-06-16 08:25:04', '2021-06-22 16:00:00', '2021-06-23 16:00:00', 1, 'admin', NULL, 0, 1, '病假');
-INSERT INTO `holiday_flow` VALUES ('683abe6acf0411eb8a74943e7698962a', 'admin', NULL, 0, '2021-06-17 00:39:00', '2021-05-31 16:00:00', '2021-06-24 16:00:00', 24, 'admin', NULL, 0, 1, 'dsadasda');
-INSERT INTO `holiday_flow` VALUES ('6c97a1cace7911eb8a74943e7698962a', 'admin', NULL, 0, '2021-06-16 08:04:07', '2021-06-15 16:00:00', '2021-06-16 16:00:00', 1, 'admin', NULL, 0, 1, 'asd');
-INSERT INTO `holiday_flow` VALUES ('6ff85beecf0411eb8a74943e7698962a', 'admin', '382c3530ce7a11eb8a74943e7698962a', 1, '2021-06-17 00:39:13', '2021-06-22 16:00:00', '2021-06-24 16:00:00', 2, 'admin', NULL, 1, 1, 'youdasd');
-INSERT INTO `holiday_flow` VALUES ('bda42b1ece7a11eb8a74943e7698962a', 'admin', NULL, 0, '2021-06-16 08:13:32', '2021-05-31 16:00:00', '2021-06-21 16:00:00', 21, 'admin', NULL, 1, 1, 'dasda');
-INSERT INTO `holiday_flow` VALUES ('fea70f9cce7911eb8a74943e7698962a', 'admin', '75466018ce7911eb8a74943e7698962a', 1, '2021-06-16 08:08:12', '2021-06-15 16:00:00', '2021-06-17 16:00:00', 2, 'admin', NULL, 0, 1, 'qweeqweqwe');
-COMMIT;
+  `notes` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Table structure for menu
 -- ----------------------------
 DROP TABLE IF EXISTS `menu`;
 CREATE TABLE `menu` (
-  `id` varchar(32) NOT NULL,
-  `sup_id` varchar(32) DEFAULT NULL,
+  `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `sup_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `levels` int DEFAULT NULL,
-  `name` varchar(32) DEFAULT NULL,
-  `icon` varchar(32) DEFAULT NULL,
-  `path` varchar(32) DEFAULT NULL,
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `icon` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `path` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `sort` int DEFAULT NULL,
-  `rights` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `rights` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
 BEGIN;
-INSERT INTO `menu` VALUES ('0a52a854c4b711eaab09000c29ee2ecd', 'a23662b7c4b011eaab09000c29ee2ecd', 2, '个人假期查询', 'el-icon-basketball', '/user_hoiday_info', 501, '/user');
-INSERT INTO `menu` VALUES ('0a543b11c4b711eaab09000c29ee2ecd', 'a23662b7c4b011eaab09000c29ee2ecd', 2, '个人请假明细', 'el-icon-document-add', '/holiday_apply', 502, '/user');
-INSERT INTO `menu` VALUES ('0a561643c4b711eaab09000c29ee2ecd', 'a23662b7c4b011eaab09000c29ee2ecd', 2, '全行假期查询', 'el-icon-s-grid', '/alluser_holiday_info', 503, '/admin');
-INSERT INTO `menu` VALUES ('0a576439c4b711eaab09000c29ee2ecd', 'a23662b7c4b011eaab09000c29ee2ecd', 2, '请假待审批流程', 'el-icon-document-add', '/pending_holiday_flow', 505, '/admin');
-INSERT INTO `menu` VALUES ('29689382c4b411eaab09000c29ee2ecd', 'a23474bbc4b011eaab09000c29ee2ecd', 2, '薪酬级别设置', 'el-icon-s-operation', '/salary_set', 301, '/admin');
-INSERT INTO `menu` VALUES ('29695363c4b411eaab09000c29ee2ecd', 'a23474bbc4b011eaab09000c29ee2ecd', 2, '员工薪酬管理', 'el-icon-s-help', '/user_salary_mng', 302, '/admin');
-INSERT INTO `menu` VALUES ('29698af5c4b411eaab09000c29ee2ecd', 'a23474bbc4b011eaab09000c29ee2ecd', 2, '个人薪酬查询', 'el-icon-help', '/user_salary_info', 303, '/user');
-INSERT INTO `menu` VALUES ('3a42597dc4b711eaab09000c29ee2ecd', 'a236f8a1c4b011eaab09000c29ee2ecd', 2, '修改密码', 'el-icon-more-outline', '/change_password', 602, '/user');
-INSERT INTO `menu` VALUES ('3d902f7dc4b111eaab09000c29ee2ecd', '8f975e11c4b011eaab09000c29ee2ecd', 2, '机构管理', 'el-icon-s-home', '/unit_mng', 102, '/admin');
-INSERT INTO `menu` VALUES ('8f975e11c4b011eaab09000c29ee2ecd', NULL, 1, '用户管理', 'el-icon-user-solid', NULL, 1, NULL);
-INSERT INTO `menu` VALUES ('a232f9ddc4b011eaab09000c29ee2ecd', NULL, 1, '岗位管理', 'el-icon-s-fold', NULL, 2, NULL);
-INSERT INTO `menu` VALUES ('a23474bbc4b011eaab09000c29ee2ecd', NULL, 1, '薪酬管理', 'el-icon-s-help', NULL, 3, NULL);
-INSERT INTO `menu` VALUES ('a2360c0bc4b011eaab09000c29ee2ecd', NULL, 1, '证书管理', 'el-icon-tickets', NULL, 4, NULL);
-INSERT INTO `menu` VALUES ('a23662b7c4b011eaab09000c29ee2ecd', NULL, 1, '请休假管理', 'el-icon-document-add', NULL, 5, NULL);
-INSERT INTO `menu` VALUES ('a236f8a1c4b011eaab09000c29ee2ecd', NULL, 1, '设置中心', 'el-icon-s-tools', NULL, 6, NULL);
-INSERT INTO `menu` VALUES ('b61273acc4b711eaab09000c29ee2ecd', 'a236f8a1c4b011eaab09000c29ee2ecd', 2, '个人基本信息', 'el-icon-s-tools', '/user_info', 601, '/user');
-INSERT INTO `menu` VALUES ('cbeaf4cfc4b411eaab09000c29ee2ecd', 'a2360c0bc4b011eaab09000c29ee2ecd', 2, '个人证书管理', 'el-icon-tickets', '/user_cert_mng', 401, '/user');
-INSERT INTO `menu` VALUES ('cbebbc38c4b411eaab09000c29ee2ecd', 'a2360c0bc4b011eaab09000c29ee2ecd', 2, '全行证书管理', 'el-icon-document-copy', '/alluser_cert_mng', 402, '/admin');
-INSERT INTO `menu` VALUES ('cbec48c3c4b411eaab09000c29ee2ecd', 'a2360c0bc4b011eaab09000c29ee2ecd', 2, '已发送的证书申请', 'el-icon-football', '/applied_cert_flow', 403, '/user');
-INSERT INTO `menu` VALUES ('cbecf3b3c4b411eaab09000c29ee2ecd', 'a2360c0bc4b011eaab09000c29ee2ecd', 2, '证书待审批流程', 'el-icon-coordinate', '/pending_cert_flow', 404, '/admin');
-INSERT INTO `menu` VALUES ('e6108b01c4b311eaab09000c29ee2ecd', 'a232f9ddc4b011eaab09000c29ee2ecd', 2, '岗位设置', 'el-icon-s-fold', '/post_set', 201, '/admin');
-INSERT INTO `menu` VALUES ('fef29da6c4b011eaab09000c29ee2ecd', '8f975e11c4b011eaab09000c29ee2ecd', 2, '员工基本信息管理', 'el-icon-user-solid', '/user_mng', 101, '/admin');
+INSERT INTO `menu` VALUES ('0a52a854c4b711eaab09000c29ee2ecd', 'a23662b7c4b011eaab09000c29ee2ecd', 2, '个人假期查询', 'el-icon-burger', '/user_hoiday_info', 501, '/user');
+INSERT INTO `menu` VALUES ('0a543b11c4b711eaab09000c29ee2ecd', 'a23662b7c4b011eaab09000c29ee2ecd', 2, '个人请假明细', 'el-icon-dessert', '/holiday_apply', 502, '/user');
+INSERT INTO `menu` VALUES ('0a561643c4b711eaab09000c29ee2ecd', 'a23662b7c4b011eaab09000c29ee2ecd', 2, '全行假期查询', 'el-icon-ice-cream', '/alluser_holiday_info', 503, '/admin');
+INSERT INTO `menu` VALUES ('0a576439c4b711eaab09000c29ee2ecd', 'a23662b7c4b011eaab09000c29ee2ecd', 2, '请假待审批流程', 'el-icon-grape', '/pending_holiday_flow', 505, '/admin');
+INSERT INTO `menu` VALUES ('29689382c4b411eaab09000c29ee2ecd', 'a23474bbc4b011eaab09000c29ee2ecd', 2, '薪酬级别设置', 'el-icon-watermelon', '/salary_set', 301, '/admin');
+INSERT INTO `menu` VALUES ('29695363c4b411eaab09000c29ee2ecd', 'a23474bbc4b011eaab09000c29ee2ecd', 2, '员工薪酬管理', 'el-icon-cherry', '/user_salary_mng', 302, '/admin');
+INSERT INTO `menu` VALUES ('29698af5c4b411eaab09000c29ee2ecd', 'a23474bbc4b011eaab09000c29ee2ecd', 2, '个人薪酬查询', 'el-icon-apple', '/user_salary_info', 303, '/user');
+INSERT INTO `menu` VALUES ('2ba0a77fc6a511eaab09000c29ee2ecd', '7430461cc5e211eaab09000c29ee2ecd', 2, '全行绩效', 'el-icon-refrigerator', '/all_performance', 602, '/admin');
+INSERT INTO `menu` VALUES ('3a42597dc4b711eaab09000c29ee2ecd', 'a236f8a1c4b011eaab09000c29ee2ecd', 2, '修改密码', 'el-icon-pear', '/change_password', 702, '/user');
+INSERT INTO `menu` VALUES ('3d902f7dc4b111eaab09000c29ee2ecd', '8f975e11c4b011eaab09000c29ee2ecd', 2, '机构管理', 'el-icon-orange', '/unit_mng', 102, '/admin');
+INSERT INTO `menu` VALUES ('6e18ff03c5e211eaab09000c29ee2ecd', '7430461cc5e211eaab09000c29ee2ecd', 2, '个人绩效', 'el-icon-food', '/performance', 601, '/user');
+INSERT INTO `menu` VALUES ('7430461cc5e211eaab09000c29ee2ecd', NULL, 1, '绩效管理', 'el-icon-sugar', '', 6, NULL);
+INSERT INTO `menu` VALUES ('8f975e11c4b011eaab09000c29ee2ecd', NULL, 1, '用户管理', 'el-icon-coffee', NULL, 1, NULL);
+INSERT INTO `menu` VALUES ('a232f9ddc4b011eaab09000c29ee2ecd', NULL, 1, '岗位管理', 'el-icon-potato-strips', NULL, 2, NULL);
+INSERT INTO `menu` VALUES ('a23474bbc4b011eaab09000c29ee2ecd', NULL, 1, '薪酬管理', 'el-icon-lollipop', NULL, 3, NULL);
+INSERT INTO `menu` VALUES ('a2360c0bc4b011eaab09000c29ee2ecd', NULL, 1, '证书管理', 'el-icon-ice-cream-round', NULL, 4, NULL);
+INSERT INTO `menu` VALUES ('a23662b7c4b011eaab09000c29ee2ecd', NULL, 1, '请休假管理', 'el-icon-cold-drink', NULL, 5, NULL);
+INSERT INTO `menu` VALUES ('a236f8a1c4b011eaab09000c29ee2ecd', NULL, 1, '设置中心', 'el-icon-ice-tea', NULL, 7, NULL);
+INSERT INTO `menu` VALUES ('b61273acc4b711eaab09000c29ee2ecd', 'a236f8a1c4b011eaab09000c29ee2ecd', 2, '个人基本信息', 'el-icon-ice-drink', '/user_info', 701, '/user');
+INSERT INTO `menu` VALUES ('cbeaf4cfc4b411eaab09000c29ee2ecd', 'a2360c0bc4b011eaab09000c29ee2ecd', 2, '个人证书管理', 'el-icon-milk-tea', '/user_cert_mng', 401, '/user');
+INSERT INTO `menu` VALUES ('cbebbc38c4b411eaab09000c29ee2ecd', 'a2360c0bc4b011eaab09000c29ee2ecd', 2, '全行证书管理', 'el-icon-ice-cream-square', '/alluser_cert_mng', 402, '/admin');
+INSERT INTO `menu` VALUES ('cbec48c3c4b411eaab09000c29ee2ecd', 'a2360c0bc4b011eaab09000c29ee2ecd', 2, '已发送的证书申请', 'el-icon-coffee-cup', '/applied_cert_flow', 403, '/user');
+INSERT INTO `menu` VALUES ('cbecf3b3c4b411eaab09000c29ee2ecd', 'a2360c0bc4b011eaab09000c29ee2ecd', 2, '证书待审批流程', 'el-icon-goblet-square-full', '/pending_cert_flow', 404, '/admin');
+INSERT INTO `menu` VALUES ('e6108b01c4b311eaab09000c29ee2ecd', 'a232f9ddc4b011eaab09000c29ee2ecd', 2, '岗位设置', 'el-icon-hot-water', '/post_set', 201, '/admin');
+INSERT INTO `menu` VALUES ('fef29da6c4b011eaab09000c29ee2ecd', '8f975e11c4b011eaab09000c29ee2ecd', 2, '员工基本信息管理', 'el-icon-tableware', '/user_mng', 101, '/admin');
 COMMIT;
 
 -- ----------------------------
@@ -198,11 +175,11 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `org_post`;
 CREATE TABLE `org_post` (
-  `id` varchar(32) NOT NULL,
-  `name` varchar(32) DEFAULT NULL,
-  `notes` varchar(400) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `notes` varchar(400) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of org_post
@@ -219,13 +196,13 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `org_unit`;
 CREATE TABLE `org_unit` (
-  `id` varchar(32) NOT NULL,
-  `name` varchar(200) DEFAULT NULL,
-  `address` varchar(400) DEFAULT NULL,
-  `phone` varchar(32) DEFAULT NULL,
-  `manager` varchar(32) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `address` varchar(400) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `phone` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `manager` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of org_unit
@@ -241,15 +218,46 @@ INSERT INTO `org_unit` VALUES ('7430461cc5e211eaab09000c29ee2ecd', '人力资源
 COMMIT;
 
 -- ----------------------------
+-- Table structure for performance
+-- ----------------------------
+DROP TABLE IF EXISTS `performance`;
+CREATE TABLE `performance` (
+  `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `username` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `total_time` int DEFAULT NULL,
+  `month` int DEFAULT NULL,
+  `day` int DEFAULT NULL,
+  `year` int DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Table structure for performance_flow
+-- ----------------------------
+DROP TABLE IF EXISTS `performance_flow`;
+CREATE TABLE `performance_flow` (
+  `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `username` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `btime` datetime DEFAULT NULL,
+  `etime` datetime DEFAULT NULL,
+  `daily_time` int DEFAULT NULL,
+  `type` int DEFAULT NULL,
+  `state` int DEFAULT NULL,
+  `if_overtime` varchar(32) DEFAULT NULL,
+  `notes` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
 -- Table structure for role
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
-  `id` varchar(32) NOT NULL,
-  `name` varchar(32) DEFAULT NULL,
-  `nameZh` varchar(32) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `nameZh` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of role
@@ -264,11 +272,11 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `salary`;
 CREATE TABLE `salary` (
-  `id` varchar(32) NOT NULL,
+  `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `salary` decimal(10,2) DEFAULT NULL,
-  `notes` varchar(400) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `notes` varchar(400) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of salary
@@ -285,19 +293,19 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `id` varchar(32) NOT NULL,
-  `username` varchar(32) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
+  `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `username` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `enabled` tinyint DEFAULT NULL,
   `locked` tinyint DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES ('1dfbca02c5c911eaab09000c29ee2ecd', 'xiaokang', '$2a$10$WotpVWHe68MoR9nKafgLLO.xF89OeUvyow0g7sETuuwFsV/NoRwNe', 1, 0);
+INSERT INTO `user` VALUES ('1dfbca02c5c911eaab09000c29ee2ecd', 'test', '$2a$10$WotpVWHe68MoR9nKafgLLO.xF89OeUvyow0g7sETuuwFsV/NoRwNe', 1, 0);
 INSERT INTO `user` VALUES ('9b3d0648c38d11eaab09000c29ee2ecd', 'admin', '$2a$10$/zMDHw7cKoZpDS9vfE9BRO4x0C0cinbBoQ9NGn/q54EyoTaOJdvoS', 1, 0);
 INSERT INTO `user` VALUES ('c863dde2c38d11eaab09000c29ee2ecd', 'user', '$2a$10$xbheuUbXzfpU5CWwWek2Je6N8MAuwKiElm315Fgi9d5NmLaVobyOu', 1, 0);
 COMMIT;
@@ -307,17 +315,17 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `user_info`;
 CREATE TABLE `user_info` (
-  `username` varchar(32) NOT NULL,
-  `phone` varchar(32) DEFAULT NULL,
-  `address` varchar(200) DEFAULT NULL,
-  `email` varchar(200) DEFAULT NULL,
-  `unit` varchar(32) DEFAULT NULL,
-  `level` varchar(32) DEFAULT NULL,
-  `position` varchar(32) DEFAULT NULL,
-  `salary` varchar(32) DEFAULT NULL,
-  `photo` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `username` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `phone` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `address` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `email` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `unit` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `level` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `position` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `salary` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `photo` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`username`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of user_info
@@ -333,25 +341,59 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `user_role`;
 CREATE TABLE `user_role` (
-  `id` varchar(32) NOT NULL,
-  `uid` varchar(32) DEFAULT NULL,
-  `rid` varchar(32) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `uid` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `rid` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of user_role
 -- ----------------------------
 BEGIN;
+INSERT INTO `user_role` VALUES ('02101196d1cd11ebaff8eb80be38dca8', '020eaa72d1cd11ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('02360142d1c511ebaff8eb80be38dca8', '02348326d1c511ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('04fe22e8d1bf11eb9006ce2b6c9ccb23', '04fcf7ecd1bf11eb9006ce2b6c9ccb23', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('05b24152d1cd11ebaff8eb80be38dca8', '05b01968d1cd11ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('0ea281f0d1be11eb9006ce2b6c9ccb23', '0ea0e6c4d1be11eb9006ce2b6c9ccb23', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('13480fbcd1d311ebaff8eb80be38dca8', '1343c72cd1d311ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('178214b0d1c411ebaff8eb80be38dca8', '177f3812d1c411ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
 INSERT INTO `user_role` VALUES ('1dfd15d7c5c911eaab09000c29ee2ecd', '1dfbca02c5c911eaab09000c29ee2ecd', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('21571baad1c611ebaff8eb80be38dca8', '2154f186d1c611ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('21af64f6d1bf11eb9006ce2b6c9ccb23', '21ae6d8ad1bf11eb9006ce2b6c9ccb23', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('25c45010d1bf11eb9006ce2b6c9ccb23', '25c3570ad1bf11eb9006ce2b6c9ccb23', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('28cceb28d1bf11eb9006ce2b6c9ccb23', '28cbea48d1bf11eb9006ce2b6c9ccb23', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('2931a63cd1c211eb9006ce2b6c9ccb23', '29303446d1c211eb9006ce2b6c9ccb23', 'f412c01ac38d11eaab09000c29ee2ecd');
 INSERT INTO `user_role` VALUES ('34613504c38e11eaab09000c29ee2ecd', '9b3d0648c38d11eaab09000c29ee2ecd', 'f410de25c38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('367c59e8d1bf11eb9006ce2b6c9ccb23', '367a71dcd1bf11eb9006ce2b6c9ccb23', 'f412c01ac38d11eaab09000c29ee2ecd');
 INSERT INTO `user_role` VALUES ('464863ecc77a11ea9fa9000c29ee2ecd', '4646eab6c77a11ea9fa9000c29ee2ecd', 'f412c01ac38d11eaab09000c29ee2ecd');
 INSERT INTO `user_role` VALUES ('49911376c38e11eaab09000c29ee2ecd', 'c863dde2c38d11eaab09000c29ee2ecd', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('52906a14d1c611ebaff8eb80be38dca8', '528e79c0d1c611ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('555c3f02d1c611ebaff8eb80be38dca8', '5559b840d1c611ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('592c825ad1cf11ebaff8eb80be38dca8', '592aa84ad1cf11ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('6061486ad1d111ebaff8eb80be38dca8', '605ff456d1d111ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('63065812d1d111ebaff8eb80be38dca8', '63051920d1d111ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('65cb9d7cd1be11eb9006ce2b6c9ccb23', '65ca3766d1be11eb9006ce2b6c9ccb23', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('759df5aad1c911ebaff8eb80be38dca8', '759c18c0d1c911ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('7c426e14d1be11eb9006ce2b6c9ccb23', '7c413c42d1be11eb9006ce2b6c9ccb23', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('7ea7d416d1cb11ebaff8eb80be38dca8', '7ea5f74ad1cb11ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('81b57a5ad1cb11ebaff8eb80be38dca8', '81b409c2d1cb11ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('a2c66a48d1ca11ebaff8eb80be38dca8', 'a2c49844d1ca11ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('ad2411dad1bf11eb9006ce2b6c9ccb23', 'ad22958ad1bf11eb9006ce2b6c9ccb23', 'f412c01ac38d11eaab09000c29ee2ecd');
 INSERT INTO `user_role` VALUES ('aea2ef93c5c811eaab09000c29ee2ecd', 'aea16d0dc5c811eaab09000c29ee2ecd', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('ba72c1c2d1c611ebaff8eb80be38dca8', 'ba708830d1c611ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
 INSERT INTO `user_role` VALUES ('bb9c2169c77a11ea9fa9000c29ee2ecd', 'bb9a542fc77a11ea9fa9000c29ee2ecd', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('bcfc02d8d1cf11ebaff8eb80be38dca8', 'bcfad8ccd1cf11ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('bd8f43a8d1c611ebaff8eb80be38dca8', 'bd8dfcf0d1c611ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
 INSERT INTO `user_role` VALUES ('befa8284c38e11eaab09000c29ee2ecd', '9b3d0648c38d11eaab09000c29ee2ecd', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('c05fb806d1c611ebaff8eb80be38dca8', 'c05e9994d1c611ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('ccc4076cd1be11eb9006ce2b6c9ccb23', 'ccc20a70d1be11eb9006ce2b6c9ccb23', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('dbde568cd1d011ebaff8eb80be38dca8', 'dbdd02a0d1d011ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('de8ae396d1d011ebaff8eb80be38dca8', 'de895710d1d011ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
 INSERT INTO `user_role` VALUES ('ee4d127dc77a11ea9fa9000c29ee2ecd', 'ee4bd67ac77a11ea9fa9000c29ee2ecd', 'f412c01ac38d11eaab09000c29ee2ecd');
 INSERT INTO `user_role` VALUES ('f2c8b270c5c811eaab09000c29ee2ecd', 'f2c733b0c5c811eaab09000c29ee2ecd', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('f974c71ed1c411ebaff8eb80be38dca8', 'f9730c26d1c411ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('fe6cc7b2d1c411ebaff8eb80be38dca8', 'fe6b2286d1c411ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
