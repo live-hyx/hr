@@ -22,10 +22,15 @@ import HolidayApply from '../components/HolidayApply.vue'
 import PendingHolidayFlow from '../components/PendingHolidayFlow.vue'
 import UserInfo from '../components/UserInfo.vue'
 import ChangePassword from '../components/ChangePassword.vue'
+import Register from '../components/Register.vue'
+import Performance from '../components/Performance'
+import AllUserPerformance from '../components/AllUserPerformance'
+
 Vue.use(VueRouter)
 const routes = [
   { path: '/', redirect: '/login' },
   { path: '/login', component: Login },
+  { path: '/register', component: Register },
   {
     path: '/home',
     component: Home,
@@ -50,7 +55,9 @@ const routes = [
       { path: '/holiday_apply', component: HolidayApply },
       { path: '/pending_holiday_flow', component: PendingHolidayFlow },
       { path: '/user_info', component: UserInfo },
-      { path: '/change_password', component: ChangePassword }
+      { path: '/change_password', component: ChangePassword },
+      { path: '/performance', component: Performance },
+      { path: '/all_performance', component: AllUserPerformance }
     ]
   }
 ]
@@ -61,8 +68,9 @@ const router = new VueRouter({
 
 // 路由导航守卫
 router.beforeEach((to, from, next) => {
-  // 如果访问的是登录页，直接放行
+  // 如果访问的是登录或注册页，直接放行
   if (to.path === '/login') return next()
+  if (to.path === '/register') return next()
   // 取token
   const token = window.sessionStorage.getItem('token')
   // 如果不存在token，直接强制跳转到/login

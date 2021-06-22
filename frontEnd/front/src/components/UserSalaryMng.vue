@@ -24,12 +24,12 @@
               </el-table-column>
               <el-table-column
                 prop="notes"
-                label="薪酬名称"
+                label="薪酬级别"
                 width="280">
               </el-table-column>
               <el-table-column
                 prop="salary"
-                label="薪酬">
+                label="时薪">
               </el-table-column>
               <el-table-column
                 prop=""

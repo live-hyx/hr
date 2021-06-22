@@ -46,18 +46,10 @@
     <!-- 新增请假 -->
     <el-dialog
       title="新增请假" :visible.sync="addCertDialogVisable" width="35%" @close="resetDialog">
-      <el-form ref="addFormRef" :model="addCertForm" label-width="110px" :rules="addCertFormRules">
-        <el-form-item label="请假编号：" prop="cert_no">
-          <el-input v-model="addCertForm.cert_no"></el-input>
-        </el-form-item>
-        <el-form-item label="请假名称：" prop="cert_name">
-          <el-input v-model="addCertForm.cert_name"></el-input>
-        </el-form-item>
-        <el-form-item label="取得时间：" prop="cert_name">
-          <el-date-picker value-format="yyyy-MM-dd"
-                          v-model="addCertForm.cert_date"  type="date" placeholder="选择日期">
-          </el-date-picker>
-        </el-form-item>
+      <el-date-picker v-model="value7" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期"
+       end-placeholder="结束日期"
+      :picker-options="pickerOptions2">
+    </el-date-picker>
         <el-form-item >
               <span class="button_span">
                 <el-button type="primary" @click="addCert()" size="small">添加</el-button>

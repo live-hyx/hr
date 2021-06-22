@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 public class HolidayController {
@@ -34,20 +31,6 @@ public class HolidayController {
 
         return map;
     }
-
-    /*@GetMapping("/user/get_user_holiday_detail")
-    public Object getUserHolidayDetail(){
-        Map<String,Object> map=new HashMap<>();
-        //获取登录的用户名
-        User user=(User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = user.getUsername();
-        List<HolidayDetail> holidays=holidayService.getUserHolidayDetail(username);
-        map.put("state",200);
-        map.put("msg","查询本人请假成功");
-        map.put("data",holidays);
-
-        return map;
-    }*/
 
     //查询所有人请假（模糊查询）
     @GetMapping("/admin/get_all_holiday")
@@ -82,6 +65,18 @@ public class HolidayController {
         holidayFlow.setDate_num((int) ((holidayFlow.getEdate().getTime()-holidayFlow.getBdate().getTime()) / (1000 * 60 * 60 * 24)));
         holidayFlow.setNotes(holidayFlow.getNotes());
 
+        Calendar   calendar = new GregorianCalendar();
+        calendar.setTime(holidayFlow.getBdate());
+        calendar.add(calendar.DATE,1); //把日期往后增加一天,整数  往后推,负数往前移动
+        holidayFlow.setBdate(calendar.getTime()); //这个时间就是日期往后推一天的结果
+
+        Calendar   calendar1 = new GregorianCalendar();
+        calendar1.setTime(holidayFlow.getEdate());
+        calendar1.add(calendar1.DATE,1); //把日期往后增加一天,整数  往后推,负数往前移动
+        holidayFlow.setEdate(calendar1.getTime()); //这个时间就是日期往后推一天的结果
+        System.out.println(holidayFlow.getBdate());
+        System.out.println(holidayFlow.getEdate());
+
         holidayFlow.setState(0);
         Integer result = holidayService.addHolidayFlow(holidayFlow);
         if(result==1){
@@ -107,6 +102,19 @@ public class HolidayController {
         holidayFlow.setApply_date(df.parse(df.format(new Date())));
         holidayFlow.setDate_num((int) ((holidayFlow.getEdate().getTime()-holidayFlow.getBdate().getTime()) / (1000 * 60 * 60 * 24)));
         holidayFlow.setNotes(holidayFlow.getNotes());
+        //date=new   date(); //取时间
+        Calendar   calendar = new GregorianCalendar();
+        calendar.setTime(holidayFlow.getBdate());
+        calendar.add(calendar.DATE,1); //把日期往后增加一天,整数  往后推,负数往前移动
+        holidayFlow.setBdate(calendar.getTime()); //这个时间就是日期往后推一天的结果
+
+        Calendar   calendar1 = new GregorianCalendar();
+        calendar1.setTime(holidayFlow.getEdate());
+        calendar1.add(calendar1.DATE,1); //把日期往后增加一天,整数  往后推,负数往前移动
+        holidayFlow.setEdate(calendar1.getTime()); //这个时间就是日期往后推一天的结果
+
+        System.out.println(holidayFlow.getBdate());
+        System.out.println(holidayFlow.getEdate());
 
         holidayFlow.setState(0);
         Integer result = holidayService.modifyHolidayFlow(holidayFlow);
@@ -164,16 +172,11 @@ public class HolidayController {
     //查询所有待审批的请假流程
     @GetMapping("/admin/get_proving_holidayflow")
     public Object getProvingHolidayFlow(String username,Date bdate,Date edate,Integer current_index,Integer page_size){
-        System.out.println("========================");
         Map<String,Object> map=new HashMap<>();
         UserHoliday userHoliday=new UserHoliday();
         userHoliday.setUsername(username);
         userHoliday.setBdate(bdate);
         userHoliday.setEDate(edate);
-        //int date_num = (int) ((userHoliday.getEDate().getTime()-userHoliday.getBdate().getTime()) / (1000 * 60 * 60 * 24));
-        //userHoliday.setDate_num(date_num);
-
-        //System.out.println("num:"+date_num);
         userHoliday.setPage_size(page_size);
         userHoliday.setCurrent_index(current_index);
 
@@ -193,13 +196,11 @@ public class HolidayController {
         Map<String,Object> map=new HashMap<>();
         User user=(User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         DateFormat df= new SimpleDateFormat("yyy/MM/dd HH:mm:ss");
-
         //将流程数据取出来
         HolidayFlow holidayFlow =holidayService.getHolidayFlowById(id);
         if(type==0){//0新建，1修改
             // 审批同意
             if(holidayFlow.getType()==0){
-
                 //新建请假
                 HolidayDetail holidayDetail =new HolidayDetail();
                 holidayDetail.setUser(holidayFlow.getUser_name());
@@ -208,13 +209,9 @@ public class HolidayController {
                 holidayDetail.setApply_date(holidayFlow.getApply_date());
                 holidayDetail.setDate_num((int) ((holidayFlow.getEdate().getTime()-holidayFlow.getBdate().getTime()) / (1000 * 60 * 60 * 24)));
                 holidayDetail.setNotes(holidayFlow.getNotes());
-
                 int result_1=holidayService.addHoliday(holidayDetail);
-
                 //更新流程状态和审批信息
                 HolidayFlow holidayFlow2 =new HolidayFlow();
-
-
                 holidayFlow2.setId(holidayFlow.getId());
                 holidayFlow2.setApprover_id(user.getUsername());
                 holidayFlow2.setApply_date(df.parse(df.format(new Date())));
@@ -222,10 +219,7 @@ public class HolidayController {
                 holidayFlow2.setApprove_result(0);
                 holidayFlow2.setState(1);
                 holidayFlow2.setNotes(holidayFlow.getNotes());
-
                 int result_2=holidayService.updateHolidayFlowState(holidayFlow2);
-
-
                 if(result_1==1&&result_2==1){
                     map.put("state",200);
                     map.put("msg","处理流程成功");
@@ -234,7 +228,6 @@ public class HolidayController {
                     map.put("msg","处理流程失败");
                 }
             }else{
-
                 //修改请假
                 HolidayDetail holidayDetail =new HolidayDetail();
                 holidayDetail.setId(holidayFlow.getPre_id());
@@ -267,7 +260,6 @@ public class HolidayController {
                 }
             }
         }else{
-
             // 审批不同意
             //更新流程状态和审批信息
             HolidayFlow holidayFlow2 =new HolidayFlow();
@@ -280,7 +272,6 @@ public class HolidayController {
             holidayFlow2.setApprove_result(1);
             holidayFlow2.setState(1);
             holidayFlow2.setNotes(holidayFlow.getNotes());
-
             int result_2=holidayService.updateHolidayFlowState(holidayFlow2);
             if(result_2==1){
                 map.put("state",200);

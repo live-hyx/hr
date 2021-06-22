@@ -1,32 +1,22 @@
 package org.hr.controller;
 
 import org.hr.mapper.UserMapper;
-import org.hr.model.User;
-import org.hr.model.UserInfo;
-import org.hr.model.UserPost;
-import org.hr.model.UserRole;
+import org.hr.model.*;
 import org.hr.modelOv.UserOV;
 import org.hr.modelOv.UserPostOV;
 import org.hr.modelOv.UserSalary;
+import org.hr.service.PerformanceService;
 import org.hr.service.UserInfoService;
 import org.hr.service.UserRoleService;
 import org.hr.service.UserService;
 import org.hr.util.AdminUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
-import java.security.CryptoPrimitive;
-import java.sql.ResultSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 public class UserController {
@@ -38,6 +28,53 @@ public class UserController {
     UserRoleService userRoleService;
     @Autowired
     AdminUtil adminUtil;
+    @Autowired
+    RedisTemplate<String,String> redisTemplate;
+    @Autowired
+    PerformanceService performanceService;
+    /**
+     * 注册用户
+     * @return
+     */
+    @PostMapping("/register")
+    public Object register(String username,String pwd, String rpwd, String email, String code){
+        Map<String, Object> map = new HashMap<>();
+        User u = userService.findUserByUsername(username);
+        Boolean flag=true;
+        if(u != null){
+            map.put("state",201);
+            map.put("msg","用户名已存在");
+            flag=false;
+        }
+        if(!pwd.equals(rpwd)){
+            map.put("state",202);
+            map.put("msg","密码不一致");
+            flag=false;
+        }
+        String verify = redisTemplate.opsForValue().get(email);
+        if(!verify.equals(code)){
+            map.put("state",203);
+            map.put("msg","验证码错误");
+            flag=false;
+        }
+        if (flag){
+            User user = new User();
+            user.setEmail(email);
+            user.setUsername(username);
+            //先对用户密码进行加密
+            BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
+            user.setPassword(encoder.encode(pwd));
+            userService.register(user);
+            User newUser=userService.findUserByUsername(user.getUsername());
+            UserRole userRole=new UserRole();
+            userRole.setUid(newUser.getId());
+            userRole.setRid("f412c01ac38d11eaab09000c29ee2ecd");
+            userRoleService.addUserRole(userRole);
+            map.put("state",200);
+            map.put("msg","注册成功");
+        }
+        return map;
+    }
 
     //新建用户
     @PostMapping("/admin/create_user")
@@ -80,7 +117,7 @@ public class UserController {
 
     //按用户名查找用户（精确查找）
     @GetMapping("/user/getuserbyusername")
-    public Object getUserByUsername_coltroller(){
+    public Object getUserByUsername(){
         Map<String,Object> map=new HashMap<>();
         //获取当前登录的用户名
         User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -103,7 +140,7 @@ public class UserController {
 
     //按用户名查找用户（模糊查找）
     @GetMapping("/admin/getusersbyusername")
-    public Object getUsersByUsername_coltroller(String username,int current_index,int page_size){
+    public Object getUsersByUsername(String username, int current_index, int page_size){
         Map<String,Object> map=new HashMap<>();
         map.put("state",200);
         map.put("msg","查询用户成功");
@@ -238,6 +275,7 @@ public class UserController {
         User user=(User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username=user.getUsername();
         UserInfo userInfo=userInfoService.findUserInfoByUsername(username);
+
         if(userInfo!=null){
             map.put("state",200);
             map.put("msg","查询个人信息成功");
@@ -332,6 +370,20 @@ public class UserController {
         Map<String,Object> map=new HashMap<>();
         User user=(User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserSalary userSalary=userInfoService.getUserSalary(user.getUsername());
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.get(Calendar.DAY_OF_MONTH);
+        Performance performance = new Performance();
+        performance.setMonth(calendar.get(Calendar.MONTH)+1);
+        performance.setUsername(user.getUsername());
+        Integer totalTime = performanceService.getUserTotalTime(performance);
+        System.out.println(user.getUsername()+": "+performance.getMonth()+": "+totalTime);
+        if(totalTime!=null){
+            userSalary.setSalary(userSalary.getSalary()*totalTime);
+        }else{
+            userSalary.setSalary((float)0);
+        }
         map.put("state",200);
         map.put("msg","获取本人薪酬成功");
         map.put("data",userSalary);

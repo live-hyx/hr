@@ -10,6 +10,12 @@ import java.util.List;
 public interface UserMapper {
     User loadUserByUsername(String username);
     List<Role> getUserRoleByUid(String id);
+
+    /**
+     * 注册新用户
+     * @param user
+     */
+    void register(User user);
     //新建用户
     int addUser(User user);
     //通过用户名查找用户(精确查找)

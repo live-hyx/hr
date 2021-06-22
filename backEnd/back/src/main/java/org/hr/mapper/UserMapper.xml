@@ -9,6 +9,15 @@
     <select id="getUserRoleByUid" resultType="org.hr.model.Role">
         select * from role r,user_role ur where r.id=ur.rid and ur.uid=#{id}
     </select>
+
+<!--    注册新用户-->
+    <insert id="register" parameterType="org.hr.model.User">
+        INSERT INTO user (id, username, password, enabled, locked)
+        VALUES (replace(uuid(),'-',''), #{username}, #{password}, 1, 0);
+
+        INSERT INTO user_info(username,email) VALUES (#{username}, #{email});
+    </insert>
+
     <!-- 新建用户-->
     <insert id="addUser" parameterType="org.hr.model.User">
         INSERT INTO user (id, username, password, enabled, locked)
@@ -28,7 +37,8 @@
     </update>
     <!-- 删除用户 -->
     <select id="deleteUser" parameterType="String">
-        delete from user where username=#{username}
+        delete from user where username=#{username};
+        delete from performance_flow where username=#{username}
     </select>
     <!--修改用户密码-->
     <update id="updateUserPassword" parameterType="org.hr.model.User">

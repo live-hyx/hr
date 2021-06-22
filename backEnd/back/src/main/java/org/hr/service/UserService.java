@@ -33,6 +33,13 @@ public class UserService implements UserDetailsService {
         return userMapper.findUserByUsername(username);
     }
 
+    /**
+     * 注册新用户
+     * @param user
+     */
+    public void register(User user){
+        userMapper.register(user);
+    }
     //新增用户
     public int addUser(User user){
         return userMapper.addUser(user);

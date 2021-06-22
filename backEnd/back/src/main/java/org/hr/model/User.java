@@ -10,11 +10,34 @@ import java.util.List;
 
 public class User implements UserDetails {
     private String id;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", enabled=" + enabled +
+                ", locked=" + locked +
+                ", roles=" + roles +
+                '}';
+    }
+
     private String username;
-    private String  password;
+    private String password;
+    private String email;
     private Boolean enabled;
     private Boolean locked;
     private List<Role> roles;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

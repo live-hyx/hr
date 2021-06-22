@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class UserInfo implements Serializable {
     private String username;
+    private String password;
     private String phone;
     private String address;
     private String email;
@@ -12,6 +13,14 @@ public class UserInfo implements Serializable {
     private String position;
     private String salary;
     private String photo;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getUsername() {
         return username;

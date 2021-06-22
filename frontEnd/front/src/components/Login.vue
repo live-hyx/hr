@@ -1,28 +1,57 @@
 <template>
     <div class="login_container">
-        <div class="login_bigbox">
-
+      <vue-particles
+        class="login-bg"
+        color="#dedede"
+        :particleOpacity="0.7"
+        :particlesNumber="60"
+        shapeType="circle"
+        :particleSize="4"
+        linesColor="#dedede"
+        :linesWidth="1"
+        :lineLinked="true"
+        :lineOpacity="0.5"
+        :linesDistance="150"
+        :moveSpeed="3"
+        :hoverEffect="true"
+        hoverMode="grab"
+        :clickEffect="true"
+        clickMode="push"
+      >
+      </vue-particles>
+      <div class="login_container1">
             <span class="title_span">人事管理系统</span>
-            <div class="login_box">
                 <el-form ref="loginFormRef" :model="loginForm"  label-width="" class="login_form" :rules="loginFormRules">
                     <el-form-item label="" prop="username">
+                        <div class="search1">
                         <el-input v-model="loginForm.username" prefix-icon="el-icon-user" ></el-input>
+                        </div>
                     </el-form-item>
                     <el-form-item label="" prop="password">
+                      <div class="search2">
                         <el-input v-model="loginForm.password" prefix-icon="el-icon-lock" type="password"></el-input>
+                      </div>
                     </el-form-item>
                     <el-form-item class="btns">
-                        <el-button type="primary" @click="login">登录</el-button>
-                        <el-button type="info" @click="reset">重置</el-button>
+                      <div class="button">
+                        <router-link to="/register">
+                          <el-button round >注册</el-button>
+                        </router-link>
+                        <el-button round @click="login">登录</el-button>
+                        <el-button type="info" round @click="reset">重置</el-button>
+                      </div>
                     </el-form-item>
                 </el-form>
-            </div>
-        </div>
-
+      </div>
     </div>
 </template>
+
 <script>
 import Qs from 'qs'
+import Vue from 'vue'
+import VueParticles from 'vue-particles'
+Vue.use(VueParticles)
+
 export default {
   data () {
     return {
@@ -59,7 +88,7 @@ export default {
             })
             .catch(error => {
               const error2 = error + ''
-              if (error2.indexOf('401') !== -1) { this.$message.error('用户名或密码错误') } else this.$message.error('外星人把我们的服务器劫走了，刷新一下也许能抢回来哦！')
+              if (error2.indexOf('401') !== -1) { this.$message.error('用户名或密码错误') } else this.$message.error('服务器出错了！')
             })
         }
       })
@@ -69,49 +98,77 @@ export default {
       this.$message.success('已重置登录框')
     }
   }
-
 }
 </script>
 <style lang="less" scoped>
 .login_container{
-    background-color: #2b4b6b;
-    //background-color: #555;
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items:center;
+    background:url(../assets/demo-1-bg.jpg)no-repeat fixed top;
+    background-color: #555;
     height: 100%;
+    background-size: 100% 100%;
+
 }
-.login_bigbox{
-    width: 350px;
-    height: 300px;
-    //background-color: #eee;
-    border-radius: 3px;
-    position: absolute;
-    text-align: center;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
+#particles-js{
+  width: 100%;
+  height: calc(100%);
+  position: absolute;
+}
+.login_container1{
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items:center;
+  background-color: rgba(255,255,255,0.1);
+  height: 500px;
+  width: 350px;
+  background-size: 100% 100%;
 }
 .title_span{
+    position:relative;
+    display:flex;
+    flex-direction: column;
+    color: floralwhite;
     font-size: 35px;
-    width: 350px;
-    font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%,-150%);
+    font-family: "楷体",sans-serif;
+    top: -10%;
 }
-.login_box{
-    width: 350px;
-    height: 250px;
-    background-color: #fff;
-    border-radius: 3px;
+.search1{
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+    .el-input {
+      width: 100%;
+    }
+
+}
+.search2{
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+    .el-input {
+      width: 100%;
+    }
+}
+.button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 .btns{
     display:flex;
-    justify-content: flex-end;
+    flex-direction: column;
 }
 .login_form{
-    position: absolute;
-    bottom: 15%;
     width: 100%;
     padding: 10px 20px;
     box-sizing: border-box;
+
 }
 </style>

@@ -15,7 +15,7 @@
                     <el-form-item label="薪酬级别" prop="address">
                         <el-input v-model="SalaryForm.notes" disabled></el-input>
                     </el-form-item>
-                    <el-form-item label="薪酬" prop="phone">
+                    <el-form-item label="本月薪酬" prop="phone">
                         <el-input v-model="SalaryForm.salary" disabled></el-input>
                     </el-form-item>
                 </el-form>

@@ -16,7 +16,6 @@ public class AdminUtil {
     public boolean isAdmin(String username){
         List<Role> roles=userService.findRolesByUsername(username);
         for(Role role:roles){
-            //System.out.println("===role:"+role.getName());
             if(role.getName().endsWith("admin")){
                 return true;
             }

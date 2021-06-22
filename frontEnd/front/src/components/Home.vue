@@ -4,18 +4,22 @@
         <!-- 头部区域 -->
         <el-header>
             <div>
-                <img src="../assets/logo.png">
-                <span @click="backHome">人事管理系统</span>
+                <span style="text-align:center;line-height:18px;" @click="backHome">人事管理系统</span>
             </div>
-            <el-button type="info" @click="logout">退出</el-button></el-header>
+          <div>
+          <el-button :type="buttonType(index)" ref="sign" @click="sign" :disabled="isDisabled">{{signParam}}</el-button>
+          <el-button type="danger" @click="logout">退出</el-button>
+          </div>
+
+        </el-header>
         <el-container>
             <!-- 侧边栏 -->
-            <el-aside :width="isCollapse? '64px':'200px'">
+            <el-aside :width="isCollapse? '5%':'15%'">
                 <div class="toggle-button" @click="toggleCollapse">|||</div>
                 <el-menu
                     :unique-opened="true" :router="true" :collapse="isCollapse" :collapse-transition="false"
                     class="el-menu-vertical-demo" :default-active="activePath"
-                    background-color="#333744"
+                    background-color="#272C37"
                     text-color="#fff"
                     active-text-color="#409eff">
                     <!-- 一级菜单 -->
@@ -36,18 +40,27 @@
             </el-aside>
             <!-- 主体区域 -->
             <el-main>
-                <router-view></router-view>
+                <router-view>
+                  <div class="im">
+
+                  </div>
+                </router-view>
             </el-main>
         </el-container>
     </el-container>
 </template>
 <script>
 export default {
+  inject: ['reload'],
   data () {
     return {
       menuList: [],
       isCollapse: false,
-      activePath: ''
+      activePath: '',
+      signParam: '',
+      isDisabled: false,
+      signFlag: '',
+      index: ''
     }
   },
   created () {
@@ -55,13 +68,86 @@ export default {
     this.activePath = window.sessionStorage.getItem('activePath')
   },
   methods: {
+<<<<<<< HEAD
+    buttonType (index) {
+      console.log(this.index)
+      // eslint-disable-next-line eqeqeq
+      if (index == 1) {
+        return 'success'
+        // eslint-disable-next-line eqeqeq
+      } else if (index == 2) {
+        return 'warning'
+        // eslint-disable-next-line eqeqeq
+      } else if (index == 3) {
+        return 'info'
+      }
+    },
+    getCurrentTime () {
+      var yy = new Date().getFullYear()
+      var mm = new Date().getMonth() + 1
+      var dd = new Date().getDate()
+      var hh = new Date().getHours()
+      var mf = new Date().getMinutes() < 10 ? '0' + new Date().getMinutes() : new Date().getMinutes()
+      var ss = new Date().getSeconds() < 10 ? '0' + new Date().getSeconds() : new Date().getSeconds()
+      this.gettime = yy + '-' + mm + '-' + dd + ' ' + hh + ':' + mf + ':' + ss
+      console.log(this.gettime)
+    },
+
+=======
+>>>>>>> 1c629f66aa92a0a3f2c27e4dddd04bbab20bd734
+    sign () {
+      if (this.signFlag === 202) {
+        this.getCurrentTime()
+        this.$http.post('/user/signIn')
+          .then(res => {
+            this.$message.success(' 签到成功 ' + this.gettime)
+            console.log(' 签到成功 ' + this.gettime)
+            this.signParam = '签退'
+            this.index = 2
+            this.signFlag = 200
+            this.reload()
+            console.log(res)
+          })
+          .catch(error => {
+            this.$message.error('签到出错啦')
+            console.log(error)
+          })
+      }
+      if (this.signFlag === 200) {
+        this.getCurrentTime()
+        this.$http.post('/user/signUp')
+          .then(res => {
+            this.$message.success(' 签退成功 ' + this.gettime)
+            console.log(' 签退成功 ' + this.gettime)
+            this.signParam = '已签退'
+            this.signFlag = 201
+            this.index = 3
+            this.isDisabled = true
+            this.reload()
+            console.log(res)
+          })
+          .catch(error => {
+            this.$message.error('签退出错啦')
+            console.log(error)
+          })
+      }
+    },
     // 获取菜单
     getMenu () {
       this.$http.get('/user/getmenu')
         .then(res => {
           const data = res.data.data
-          // console.log(data)
           this.menuList = data
+          this.signFlag = res.data.sign
+          this.signParam = res.data.signNotes
+          if (res.data.sign === 202) {
+            this.index = 1
+          } else if (res.data.sign === 201) {
+            this.index = 3
+            this.isDisabled = true
+          } else if (res.data.sign === 200) {
+            this.index = 2
+          }
         })
         .catch(error => {
           console.log(error)
@@ -92,7 +178,7 @@ export default {
     height: 100%;
 }
 .el-header{
-    background-color: #373d41;
+    background-color: #272C37;
     display: flex;
     justify-content: space-between;
     padding-left: 0;
@@ -108,16 +194,16 @@ export default {
     }
 }
 .el-aside{
-    background-color: #333744;
+    background-color: #272C37;
     .el-menu{
         border-right: none;
     }
 }
 .el-main{
-    background-color: #eaedf1;
+    background-color:#fff;
 }
 .toggle-button{
-    background-color: #4A5064;
+    background-color: #272C37;
     color: #fff;
     font-size: 10px;
     line-height: 24px;
