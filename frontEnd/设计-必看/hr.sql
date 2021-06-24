@@ -11,7 +11,7 @@
  Target Server Version : 80021
  File Encoding         : 65001
 
- Date: 22/06/2021 18:38:59
+ Date: 24/06/2021 18:52:25
 */
 
 SET NAMES utf8mb4;
@@ -45,15 +45,9 @@ INSERT INTO `certificate_flow` VALUES ('0e70da1fc9d811ea9fa9000c29ee2ecd', 0, NU
 INSERT INTO `certificate_flow` VALUES ('119fc0e3ca9911ea9fa9000c29ee2ecd', 1, 'f1bf05cfca9811ea9fa9000c29ee2ecd', 'admin', '2020-07-20 14:55:06', 'hseconomy-1234', '高级经济师', '2020-07-19 16:00:00', 'admin', NULL, 0, 1);
 INSERT INTO `certificate_flow` VALUES ('22977bdfc9d811ea9fa9000c29ee2ecd', 1, 'ffbed786c96b11ea9fa9000c29ee2ecd', 'admin', '2020-07-19 15:54:02', '1234', '高级工程师', '2020-07-19 16:00:00', 'admin', NULL, 0, 1);
 INSERT INTO `certificate_flow` VALUES ('27fe13c6ca9911ea9fa9000c29ee2ecd', 1, 'ffbed786c96b11ea9fa9000c29ee2ecd', 'admin', '2020-07-20 14:55:43', 'hiengineer-12345678', '高级工程师', '2020-07-19 16:00:00', 'admin', NULL, 1, 1);
-INSERT INTO `certificate_flow` VALUES ('2fd6e19eca4011ea9fa9000c29ee2ecd', 0, NULL, 'user', '2020-07-20 04:18:52', 'user-cert-no', 'user-cert-name', '2020-07-19 16:00:00', 'admin', NULL, 0, 1);
-INSERT INTO `certificate_flow` VALUES ('3ad64f86ccaa11eb8a74943e7698962a', 1, 'f44d0cc6ca9811ea9fa9000c29ee2ecd', 'user', '2021-06-14 00:48:26', 'engineer-8888', '中级工程师', '2020-07-19 16:00:00', 'admin', NULL, 0, 1);
 INSERT INTO `certificate_flow` VALUES ('4ea8a025ca9911ea9fa9000c29ee2ecd', 1, 'ffbed786c96b11ea9fa9000c29ee2ecd', 'admin', '2020-07-20 14:56:48', 'hskuaiji', '高级会计师', '2020-07-19 16:00:00', 'admin', NULL, 0, 1);
-INSERT INTO `certificate_flow` VALUES ('4fbb5b08ccaa11eb8a74943e7698962a', 0, NULL, 'user', '2021-06-14 00:49:01', 'msn-123', '社会杰出贡献', '2021-06-21 16:00:00', 'admin', NULL, 0, 1);
 INSERT INTO `certificate_flow` VALUES ('5a9b790aca9911ea9fa9000c29ee2ecd', 1, 'ffbed786c96b11ea9fa9000c29ee2ecd', 'admin', '2020-07-20 14:57:08', 'hskuaiji-1234', '高级会计师', '2020-07-19 16:00:00', 'admin', NULL, 0, 1);
-INSERT INTO `certificate_flow` VALUES ('5bd616a8ca9811eb8a74943e7698962a', 1, 'f44d0cc6ca9811ea9fa9000c29ee2ecd', 'user', '2021-06-11 09:35:28', 'msengineer-5678', '中级工程师', '2020-07-19 16:00:00', 'admin', NULL, 1, 1);
 INSERT INTO `certificate_flow` VALUES ('5ca47296ccb411eb8a74943e7698962a', 1, 'c47133e2cc1311eb8a74943e7698962a', 'admin', '2021-06-14 02:00:58', 'EX-123', '优秀员工', '2021-06-01 16:00:00', 'admin', NULL, 0, 1);
-INSERT INTO `certificate_flow` VALUES ('715ef51eca9911ea9fa9000c29ee2ecd', 1, 'f44d0cc6ca9811ea9fa9000c29ee2ecd', 'user', '2020-07-20 14:57:46', 'msengineer-1234', '中级工程师', '2020-07-19 16:00:00', 'admin', NULL, 0, 1);
-INSERT INTO `certificate_flow` VALUES ('7d24a036ca9911ea9fa9000c29ee2ecd', 0, NULL, 'user', '2020-07-20 14:58:06', 'mieconmy-12345', '中级经济师', '2020-07-19 16:00:00', 'admin', NULL, 1, 1);
 INSERT INTO `certificate_flow` VALUES ('99e8ee34ccb411eb8a74943e7698962a', 0, NULL, 'admin', '2021-06-14 02:02:41', '111', '额外', '2021-05-31 16:00:00', 'admin', NULL, 1, 1);
 INSERT INTO `certificate_flow` VALUES ('ab8f2c12cc1311eb8a74943e7698962a', 0, NULL, 'admin', '2021-06-13 06:50:41', '123', '继续', '2021-06-06 16:00:00', 'admin', NULL, 1, 1);
 INSERT INTO `certificate_flow` VALUES ('c2e5b354cc1311eb8a74943e7698962a', 0, NULL, 'admin', '2021-06-13 06:51:21', '123', 'ewq ', '2021-06-01 16:00:00', 'admin', NULL, 0, 1);
@@ -80,10 +74,8 @@ CREATE TABLE `employee_certificate` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `employee_certificate` VALUES ('389447f8c9a711ea9fa9000c29ee2ecd', 'admin', 'hsengineer-1234', '高级工程师', '2020-07-18 16:00:00', NULL);
-INSERT INTO `employee_certificate` VALUES ('631e6e1accaa11eb8a74943e7698962a', 'user', 'msn-123', '社会杰出贡献', '2021-06-21 16:00:00', NULL);
 INSERT INTO `employee_certificate` VALUES ('c47133e2cc1311eb8a74943e7698962a', 'admin', 'EX-123', '优秀员工', '2021-06-01 16:00:00', NULL);
 INSERT INTO `employee_certificate` VALUES ('f1bf05cfca9811ea9fa9000c29ee2ecd', 'admin', 'hseconomy-1234', '高级经济师', '2020-07-19 16:00:00', NULL);
-INSERT INTO `employee_certificate` VALUES ('f44d0cc6ca9811ea9fa9000c29ee2ecd', 'user', 'engineer-8888', '中级工程师', '2020-07-19 16:00:00', NULL);
 INSERT INTO `employee_certificate` VALUES ('ffbed786c96b11ea9fa9000c29ee2ecd', 'admin', 'hskuaiji-1234', '高级会计师', '2020-07-19 16:00:00', NULL);
 COMMIT;
 
@@ -232,6 +224,13 @@ CREATE TABLE `performance` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
+-- Records of performance
+-- ----------------------------
+BEGIN;
+INSERT INTO `performance` VALUES ('f59f693ad34c11ebaff8eb80be38dca8', 'admin', 1, 6, 22, 2021);
+COMMIT;
+
+-- ----------------------------
 -- Table structure for performance_flow
 -- ----------------------------
 DROP TABLE IF EXISTS `performance_flow`;
@@ -247,6 +246,13 @@ CREATE TABLE `performance_flow` (
   `notes` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of performance_flow
+-- ----------------------------
+BEGIN;
+INSERT INTO `performance_flow` VALUES ('f388e360d34c11ebaff8eb80be38dca8', 'admin', '2021-06-22 19:28:22', '2021-06-22 19:28:26', 1, 1, 1, NULL, NULL);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for role
@@ -305,9 +311,7 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES ('1dfbca02c5c911eaab09000c29ee2ecd', 'test', '$2a$10$WotpVWHe68MoR9nKafgLLO.xF89OeUvyow0g7sETuuwFsV/NoRwNe', 1, 0);
 INSERT INTO `user` VALUES ('9b3d0648c38d11eaab09000c29ee2ecd', 'admin', '$2a$10$/zMDHw7cKoZpDS9vfE9BRO4x0C0cinbBoQ9NGn/q54EyoTaOJdvoS', 1, 0);
-INSERT INTO `user` VALUES ('c863dde2c38d11eaab09000c29ee2ecd', 'user', '$2a$10$xbheuUbXzfpU5CWwWek2Je6N8MAuwKiElm315Fgi9d5NmLaVobyOu', 1, 0);
 COMMIT;
 
 -- ----------------------------
@@ -332,8 +336,6 @@ CREATE TABLE `user_info` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `user_info` VALUES ('admin', '123', '北京路30号', 'admin@qq.com', '438b7592c5e011eaab09000c29ee2ecd', NULL, '9b47b94dc7e711ea9fa9000c29ee2ecd', '0dfc2c70c90811ea9fa9000c29ee2ecd', NULL);
-INSERT INTO `user_info` VALUES ('user', '12342314', '江门', '345@qq.com', '25cebf82c6ab11eaab09000c29ee2ecd', NULL, 'a167d3bac65711eaab09000c29ee2ecd', '9cc4161cc8a811ea9fa9000c29ee2ecd', NULL);
-INSERT INTO `user_info` VALUES ('xiaokang', '123', '地球', '123@qq.com', '438b7592c5e011eaab09000c29ee2ecd', NULL, 'a167d3bac65711eaab09000c29ee2ecd', '9cc4161cc8a811ea9fa9000c29ee2ecd', NULL);
 COMMIT;
 
 -- ----------------------------
@@ -359,6 +361,7 @@ INSERT INTO `user_role` VALUES ('0ea281f0d1be11eb9006ce2b6c9ccb23', '0ea0e6c4d1b
 INSERT INTO `user_role` VALUES ('13480fbcd1d311ebaff8eb80be38dca8', '1343c72cd1d311ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
 INSERT INTO `user_role` VALUES ('178214b0d1c411ebaff8eb80be38dca8', '177f3812d1c411ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
 INSERT INTO `user_role` VALUES ('1dfd15d7c5c911eaab09000c29ee2ecd', '1dfbca02c5c911eaab09000c29ee2ecd', 'f412c01ac38d11eaab09000c29ee2ecd');
+INSERT INTO `user_role` VALUES ('1e69f536d34f11ebaff8eb80be38dca8', '1e6835e8d34f11ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
 INSERT INTO `user_role` VALUES ('21571baad1c611ebaff8eb80be38dca8', '2154f186d1c611ebaff8eb80be38dca8', 'f412c01ac38d11eaab09000c29ee2ecd');
 INSERT INTO `user_role` VALUES ('21af64f6d1bf11eb9006ce2b6c9ccb23', '21ae6d8ad1bf11eb9006ce2b6c9ccb23', 'f412c01ac38d11eaab09000c29ee2ecd');
 INSERT INTO `user_role` VALUES ('25c45010d1bf11eb9006ce2b6c9ccb23', '25c3570ad1bf11eb9006ce2b6c9ccb23', 'f412c01ac38d11eaab09000c29ee2ecd');
