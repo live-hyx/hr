@@ -72,16 +72,26 @@
         <el-form-item label="用户名：" >
           <el-input v-model="modifyHolidayForm.user" disabled></el-input>
         </el-form-item>
-        <el-form-item label="开始日期：" prop="bdate">
-          <el-date-picker value-format="yyyy-MM-dd"
-                          v-model="modifyHolidayForm.bdate"  type="date" placeholder="选择日期">
+        <el-form-item label="请假起止日期" prop="dateRange">
+          <el-date-picker
+            v-model="modifyHolidayForm.dateRange"
+            type="daterange"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+            :picker-options="datePickerOptions">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="结束日期：" prop="edate">
-          <el-date-picker value-format="yyyy-MM-dd"
-                          v-model="modifyHolidayForm.edate"  type="date" placeholder="选择日期">
-          </el-date-picker>
-        </el-form-item>
+<!--        <el-form-item label="开始日期：" prop="bdate">-->
+<!--          <el-date-picker value-format="yyyy-MM-dd"-->
+<!--                          v-model="modifyHolidayForm.bdate"  type="date" placeholder="选择日期">-->
+<!--          </el-date-picker>-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="结束日期：" prop="edate">-->
+<!--          <el-date-picker value-format="yyyy-MM-dd"-->
+<!--                          v-model="modifyHolidayForm.edate"  type="date" placeholder="选择日期">-->
+<!--          </el-date-picker>-->
+<!--        </el-form-item>-->
         <el-form-item label="请假原因" prop="notes">
           <el-input v-model="modifyHolidayForm.notes"></el-input>
         </el-form-item>
@@ -110,6 +120,14 @@ export default {
       page_size: 5,
       current_page: 1,
       total: 0,
+      datePickerOptions: {
+        disabledDate: (time) => {
+          const nowDate = new Date()
+          const oneDay = 1000 * 60 * 60 * 24
+          const oneYearLater = new Date(nowDate.getTime() + (oneDay * 365))
+          return time.getTime() < nowDate || time.getTime() > oneYearLater
+        }
+      },
       modifyHolidayDialogVisable: false,
       modifyHolidayForm: {
         user: '',
@@ -117,11 +135,11 @@ export default {
         edate: '',
         apply_date: '',
         date_num: '',
-        notes: ''
+        notes: '',
+        dateRange: ''
       },
       modifyHolidayFormRules: {
-        bdate: [{ required: true, message: '开始日期不能为空', trigger: true }],
-        edate: [{ required: true, message: '结束日期不能为空', trigger: true }],
+        dateRange: [{ required: true, message: '开始日期不能为空', trigger: 'blur' }],
         notes: [{ required: true, message: '结束日期不能为空', trigger: true }]
       }
     }
@@ -168,6 +186,10 @@ export default {
     },
     // 修改
     modifyHoliday () {
+      this.modifyHolidayForm.bdate = this.modifyHolidayForm.dateRange[0]
+      this.modifyHolidayForm.edate = this.modifyHolidayForm.dateRange[1]
+      console.log(this.modifyHolidayForm.bdate)
+      console.log(this.modifyHolidayForm.edate)
       this.$http.post('/admin/modify_holiday', this.modifyHolidayForm)
         .then(res => {
           if (res.data.state === 200) {

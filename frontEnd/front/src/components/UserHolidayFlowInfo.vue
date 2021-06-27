@@ -56,7 +56,6 @@
                 <el-button type="info" @click="resetDialog ()" size="small">重置</el-button>
               </span>
         </el-form-item>
-      </el-form>
     </el-dialog>
     <!-- 修改请假 -->
     <el-dialog

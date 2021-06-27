@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <template>
   <div>
     <!-- 面包屑 -->
@@ -340,7 +339,7 @@ export default {
       <el-form ref="modifyFormRef" :model="modifyHolidayForm" label-width="110px" :rules="modifyHolidayFormRules">
        <el-form-item label="请假起止日期" prop="dateRange">
           <el-date-picker
-            v-model="addHolidayForm.dateRange"
+            v-model="modifyHolidayForm.dateRange"
             type="daterange"
             range-separator="至"
             start-placeholder="开始日期"
@@ -394,7 +393,8 @@ export default {
         date_num: '',
         notes: '',
         bdate: '',
-        edate: ''
+        edate: '',
+        dateRange: ''
       },
       modifyHolidayFormRules: {
         dateRange: [{ required: true, message: '开始日期不能为空', trigger: 'blur' }],
